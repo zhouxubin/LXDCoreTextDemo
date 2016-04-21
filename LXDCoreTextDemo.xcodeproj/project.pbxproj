@@ -1,0 +1,522 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EF4D30B71CC882A7003828CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D30B61CC882A7003828CF /* main.m */; };
+		EF4D30BA1CC882A7003828CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D30B91CC882A7003828CF /* AppDelegate.m */; };
+		EF4D30BD1CC882A7003828CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D30BC1CC882A7003828CF /* ViewController.m */; };
+		EF4D30C01CC882A7003828CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF4D30BE1CC882A7003828CF /* Main.storyboard */; };
+		EF4D30C21CC882A7003828CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF4D30C11CC882A7003828CF /* Assets.xcassets */; };
+		EF4D30C51CC882A7003828CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF4D30C31CC882A7003828CF /* LaunchScreen.storyboard */; };
+		EF4D30D01CC882A7003828CF /* LXDCoreTextDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D30CF1CC882A7003828CF /* LXDCoreTextDemoTests.m */; };
+		EF4D30DB1CC882A8003828CF /* LXDCoreTextDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D30DA1CC882A8003828CF /* LXDCoreTextDemoUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EF4D30CC1CC882A7003828CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF4D30AA1CC882A7003828CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EF4D30B11CC882A7003828CF;
+			remoteInfo = LXDCoreTextDemo;
+		};
+		EF4D30D71CC882A8003828CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF4D30AA1CC882A7003828CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EF4D30B11CC882A7003828CF;
+			remoteInfo = LXDCoreTextDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EF4D30B21CC882A7003828CF /* LXDCoreTextDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LXDCoreTextDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF4D30B61CC882A7003828CF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EF4D30B81CC882A7003828CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EF4D30B91CC882A7003828CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		EF4D30BB1CC882A7003828CF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		EF4D30BC1CC882A7003828CF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		EF4D30BF1CC882A7003828CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EF4D30C11CC882A7003828CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EF4D30C41CC882A7003828CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EF4D30C61CC882A7003828CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF4D30CB1CC882A7003828CF /* LXDCoreTextDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LXDCoreTextDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF4D30CF1CC882A7003828CF /* LXDCoreTextDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LXDCoreTextDemoTests.m; sourceTree = "<group>"; };
+		EF4D30D11CC882A7003828CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF4D30D61CC882A8003828CF /* LXDCoreTextDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LXDCoreTextDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF4D30DA1CC882A8003828CF /* LXDCoreTextDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LXDCoreTextDemoUITests.m; sourceTree = "<group>"; };
+		EF4D30DC1CC882A8003828CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EF4D30AF1CC882A7003828CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF4D30C81CC882A7003828CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF4D30D31CC882A8003828CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EF4D30A91CC882A7003828CF = {
+			isa = PBXGroup;
+			children = (
+				EF4D30B41CC882A7003828CF /* LXDCoreTextDemo */,
+				EF4D30CE1CC882A7003828CF /* LXDCoreTextDemoTests */,
+				EF4D30D91CC882A8003828CF /* LXDCoreTextDemoUITests */,
+				EF4D30B31CC882A7003828CF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EF4D30B31CC882A7003828CF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EF4D30B21CC882A7003828CF /* LXDCoreTextDemo.app */,
+				EF4D30CB1CC882A7003828CF /* LXDCoreTextDemoTests.xctest */,
+				EF4D30D61CC882A8003828CF /* LXDCoreTextDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EF4D30B41CC882A7003828CF /* LXDCoreTextDemo */ = {
+			isa = PBXGroup;
+			children = (
+				EF4D30B81CC882A7003828CF /* AppDelegate.h */,
+				EF4D30B91CC882A7003828CF /* AppDelegate.m */,
+				EF4D30BB1CC882A7003828CF /* ViewController.h */,
+				EF4D30BC1CC882A7003828CF /* ViewController.m */,
+				EF4D30BE1CC882A7003828CF /* Main.storyboard */,
+				EF4D30C11CC882A7003828CF /* Assets.xcassets */,
+				EF4D30C31CC882A7003828CF /* LaunchScreen.storyboard */,
+				EF4D30C61CC882A7003828CF /* Info.plist */,
+				EF4D30B51CC882A7003828CF /* Supporting Files */,
+			);
+			path = LXDCoreTextDemo;
+			sourceTree = "<group>";
+		};
+		EF4D30B51CC882A7003828CF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EF4D30B61CC882A7003828CF /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EF4D30CE1CC882A7003828CF /* LXDCoreTextDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				EF4D30CF1CC882A7003828CF /* LXDCoreTextDemoTests.m */,
+				EF4D30D11CC882A7003828CF /* Info.plist */,
+			);
+			path = LXDCoreTextDemoTests;
+			sourceTree = "<group>";
+		};
+		EF4D30D91CC882A8003828CF /* LXDCoreTextDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EF4D30DA1CC882A8003828CF /* LXDCoreTextDemoUITests.m */,
+				EF4D30DC1CC882A8003828CF /* Info.plist */,
+			);
+			path = LXDCoreTextDemoUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EF4D30B11CC882A7003828CF /* LXDCoreTextDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF4D30DF1CC882A8003828CF /* Build configuration list for PBXNativeTarget "LXDCoreTextDemo" */;
+			buildPhases = (
+				EF4D30AE1CC882A7003828CF /* Sources */,
+				EF4D30AF1CC882A7003828CF /* Frameworks */,
+				EF4D30B01CC882A7003828CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LXDCoreTextDemo;
+			productName = LXDCoreTextDemo;
+			productReference = EF4D30B21CC882A7003828CF /* LXDCoreTextDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EF4D30CA1CC882A7003828CF /* LXDCoreTextDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF4D30E21CC882A8003828CF /* Build configuration list for PBXNativeTarget "LXDCoreTextDemoTests" */;
+			buildPhases = (
+				EF4D30C71CC882A7003828CF /* Sources */,
+				EF4D30C81CC882A7003828CF /* Frameworks */,
+				EF4D30C91CC882A7003828CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF4D30CD1CC882A7003828CF /* PBXTargetDependency */,
+			);
+			name = LXDCoreTextDemoTests;
+			productName = LXDCoreTextDemoTests;
+			productReference = EF4D30CB1CC882A7003828CF /* LXDCoreTextDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EF4D30D51CC882A8003828CF /* LXDCoreTextDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF4D30E51CC882A8003828CF /* Build configuration list for PBXNativeTarget "LXDCoreTextDemoUITests" */;
+			buildPhases = (
+				EF4D30D21CC882A8003828CF /* Sources */,
+				EF4D30D31CC882A8003828CF /* Frameworks */,
+				EF4D30D41CC882A8003828CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF4D30D81CC882A8003828CF /* PBXTargetDependency */,
+			);
+			name = LXDCoreTextDemoUITests;
+			productName = LXDCoreTextDemoUITests;
+			productReference = EF4D30D61CC882A8003828CF /* LXDCoreTextDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EF4D30AA1CC882A7003828CF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = CNPay;
+				TargetAttributes = {
+					EF4D30B11CC882A7003828CF = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 23R3RZE6E9;
+					};
+					EF4D30CA1CC882A7003828CF = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 23R3RZE6E9;
+						TestTargetID = EF4D30B11CC882A7003828CF;
+					};
+					EF4D30D51CC882A8003828CF = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 23R3RZE6E9;
+						TestTargetID = EF4D30B11CC882A7003828CF;
+					};
+				};
+			};
+			buildConfigurationList = EF4D30AD1CC882A7003828CF /* Build configuration list for PBXProject "LXDCoreTextDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EF4D30A91CC882A7003828CF;
+			productRefGroup = EF4D30B31CC882A7003828CF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EF4D30B11CC882A7003828CF /* LXDCoreTextDemo */,
+				EF4D30CA1CC882A7003828CF /* LXDCoreTextDemoTests */,
+				EF4D30D51CC882A8003828CF /* LXDCoreTextDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EF4D30B01CC882A7003828CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF4D30C51CC882A7003828CF /* LaunchScreen.storyboard in Resources */,
+				EF4D30C21CC882A7003828CF /* Assets.xcassets in Resources */,
+				EF4D30C01CC882A7003828CF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF4D30C91CC882A7003828CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF4D30D41CC882A8003828CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EF4D30AE1CC882A7003828CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF4D30BD1CC882A7003828CF /* ViewController.m in Sources */,
+				EF4D30BA1CC882A7003828CF /* AppDelegate.m in Sources */,
+				EF4D30B71CC882A7003828CF /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF4D30C71CC882A7003828CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF4D30D01CC882A7003828CF /* LXDCoreTextDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF4D30D21CC882A8003828CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF4D30DB1CC882A8003828CF /* LXDCoreTextDemoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EF4D30CD1CC882A7003828CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EF4D30B11CC882A7003828CF /* LXDCoreTextDemo */;
+			targetProxy = EF4D30CC1CC882A7003828CF /* PBXContainerItemProxy */;
+		};
+		EF4D30D81CC882A8003828CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EF4D30B11CC882A7003828CF /* LXDCoreTextDemo */;
+			targetProxy = EF4D30D71CC882A8003828CF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EF4D30BE1CC882A7003828CF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EF4D30BF1CC882A7003828CF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EF4D30C31CC882A7003828CF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EF4D30C41CC882A7003828CF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EF4D30DD1CC882A8003828CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EF4D30DE1CC882A8003828CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EF4D30E01CC882A8003828CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LXDCoreTextDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "http---cnpayany.com.LXDCoreTextDemo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EF4D30E11CC882A8003828CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LXDCoreTextDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "http---cnpayany.com.LXDCoreTextDemo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		EF4D30E31CC882A8003828CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LXDCoreTextDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "http---cnpayany.com.LXDCoreTextDemoTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LXDCoreTextDemo.app/LXDCoreTextDemo";
+			};
+			name = Debug;
+		};
+		EF4D30E41CC882A8003828CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LXDCoreTextDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "http---cnpayany.com.LXDCoreTextDemoTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LXDCoreTextDemo.app/LXDCoreTextDemo";
+			};
+			name = Release;
+		};
+		EF4D30E61CC882A8003828CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LXDCoreTextDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "http---cnpayany.com.LXDCoreTextDemoUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LXDCoreTextDemo;
+			};
+			name = Debug;
+		};
+		EF4D30E71CC882A8003828CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LXDCoreTextDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "http---cnpayany.com.LXDCoreTextDemoUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LXDCoreTextDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EF4D30AD1CC882A7003828CF /* Build configuration list for PBXProject "LXDCoreTextDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF4D30DD1CC882A8003828CF /* Debug */,
+				EF4D30DE1CC882A8003828CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF4D30DF1CC882A8003828CF /* Build configuration list for PBXNativeTarget "LXDCoreTextDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF4D30E01CC882A8003828CF /* Debug */,
+				EF4D30E11CC882A8003828CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EF4D30E21CC882A8003828CF /* Build configuration list for PBXNativeTarget "LXDCoreTextDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF4D30E31CC882A8003828CF /* Debug */,
+				EF4D30E41CC882A8003828CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EF4D30E51CC882A8003828CF /* Build configuration list for PBXNativeTarget "LXDCoreTextDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF4D30E61CC882A8003828CF /* Debug */,
+				EF4D30E71CC882A8003828CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EF4D30AA1CC882A7003828CF /* Project object */;
+}
