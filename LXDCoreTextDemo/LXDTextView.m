@@ -352,13 +352,15 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
             return;
         }
     }
+    
+    if (!_emojiUserInteractionEnabled) { return; }
     for (NSString * rectString in self.emojiTouchMapper) {
         CGRect textRect = CGRectFromString(rectString);
 //        NSLog(@"touch: %@ ---- %@", NSStringFromCGPoint(touchPoint), rectString);
         if (CGRectContainsPoint(textRect, touchPoint)) {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle: nil message: [NSString stringWithFormat: @"点击了emoji表情%@", self.emojiTouchMapper[rectString]] preferredStyle: UIAlertControllerStyleAlert];
-            [alert addAction: [UIAlertAction actionWithTitle: @"确认" style: UIAlertActionStyleCancel handler: nil]];
-            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController: alert animated: YES completion: nil];
+            if ([_delegate respondsToSelector: @selector(textView:didSelectedEmoji:)]) {
+                [_delegate textView: self didSelectedEmoji: self.emojiTouchMapper[rectString]];
+            }
         }
     }
 }
