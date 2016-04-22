@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "LXDTextView.h"
 
 @interface ViewController ()
 
@@ -16,12 +17,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    LXDTextView * textView = [[LXDTextView alloc] initWithFrame: CGRectMake(0, 0, 100, 100)];
+    [self.view addSubview: textView];
+    textView.text = @"[这是链接](http://sindrilin.com)";
+    textView.center = self.view.center;
+    textView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
