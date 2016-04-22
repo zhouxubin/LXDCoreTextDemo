@@ -16,7 +16,6 @@
 		EF4D30D01CC882A7003828CF /* LXDCoreTextDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D30CF1CC882A7003828CF /* LXDCoreTextDemoTests.m */; };
 		EF4D30DB1CC882A8003828CF /* LXDCoreTextDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D30DA1CC882A8003828CF /* LXDCoreTextDemoUITests.m */; };
 		EF67EBBE1CC9C0D50004B435 /* LXDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF67EBBD1CC9C0D50004B435 /* LXDTextView.m */; };
-		EFF7DFE11CCA038B00E0BC30 /* NSString+LXDMarkdownExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF7DFE01CCA038B00E0BC30 /* NSString+LXDMarkdownExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +54,6 @@
 		EF4D30DC1CC882A8003828CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF67EBBC1CC9C0D50004B435 /* LXDTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXDTextView.h; sourceTree = "<group>"; };
 		EF67EBBD1CC9C0D50004B435 /* LXDTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXDTextView.m; sourceTree = "<group>"; };
-		EFF7DFDF1CCA038B00E0BC30 /* NSString+LXDMarkdownExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LXDMarkdownExtension.h"; sourceTree = "<group>"; };
-		EFF7DFE01CCA038B00E0BC30 /* NSString+LXDMarkdownExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LXDMarkdownExtension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +104,6 @@
 		EF4D30B41CC882A7003828CF /* LXDCoreTextDemo */ = {
 			isa = PBXGroup;
 			children = (
-				EFF7DFDF1CCA038B00E0BC30 /* NSString+LXDMarkdownExtension.h */,
-				EFF7DFE01CCA038B00E0BC30 /* NSString+LXDMarkdownExtension.m */,
 				EF67EBBC1CC9C0D50004B435 /* LXDTextView.h */,
 				EF67EBBD1CC9C0D50004B435 /* LXDTextView.m */,
 				EF4D30B81CC882A7003828CF /* AppDelegate.h */,
@@ -283,7 +278,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFF7DFE11CCA038B00E0BC30 /* NSString+LXDMarkdownExtension.m in Sources */,
 				EF67EBBE1CC9C0D50004B435 /* LXDTextView.m in Sources */,
 				EF4D30BD1CC882A7003828CF /* ViewController.m in Sources */,
 				EF4D30BA1CC882A7003828CF /* AppDelegate.m in Sources */,

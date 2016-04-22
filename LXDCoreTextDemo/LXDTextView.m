@@ -8,12 +8,27 @@
 
 #import "LXDTextView.h"
 #import <CoreText/CoreText.h>
-#import "NSString+LXDMarkdownExtension.h"
+
+
+static NSString * const LXDEmojiImageNameKey = @"LXDEmojiImageNameKey";
+static NSString * const LXDObserverKey = @"superview";
 
 
 @interface LXDTextView ()
 
+/*!
+ *  @brief 富文本字符串
+ */
+@property (nonatomic, strong) NSMutableAttributedString * content;
+
+/*!
+ *  @brief 文本点击范围的映射字典
+ */
 @property (nonatomic, strong) NSMutableDictionary * textTouchMapper;
+
+/*!
+ *  @brief emoji图片点击范围映射字典
+ */
 @property (nonatomic, strong) NSMutableDictionary * emojiTouchMapper;
 
 @end
@@ -46,15 +61,72 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
 }
 
 
+#pragma mark - 构造器
+- (instancetype)init
+{
+    if (self = [super init]){
+        [self commonInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame: (CGRect)frame
+{
+    if (self = [super initWithFrame: frame]) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder: (NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder: aDecoder]) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit
+{
+    self.backgroundColor = [UIColor yellowColor];
+}
+
+- (void)dealloc
+{
+    CFRelease(_frame);
+}
+
+
+#pragma mark - setter
+- (void)setEmojiTextMapper: (NSDictionary *)emojiTextMapper
+{
+    _emojiTextMapper = emojiTextMapper;
+    [self setNeedsDisplay];
+}
+
+- (void)setHyperlinkMapper: (NSDictionary *)hyperlinkMapper
+{
+    _hyperlinkMapper = hyperlinkMapper;
+    [self setNeedsDisplay];
+}
+
 - (void)setText: (NSString *)text
 {
     _text = text.copy;
     [self setNeedsDisplay];
 }
 
-- (void)dealloc
+
+#pragma mark - 懒加载
+- (NSDictionary *)textAttributes
 {
-    CFRelease(_frame);
+    if (!_textAttributes) {
+        _textAttributes = @{
+                            NSForegroundColorAttributeName: [UIColor blackColor],
+                            NSFontAttributeName: [UIFont systemFontOfSize: 16]
+                            };
+    }
+    return _textAttributes;
 }
 
 - (NSMutableDictionary *)textTouchMapper
@@ -68,39 +140,54 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
 }
 
 
-#pragma mark - 绘制文本
-- (void)drawRect: (CGRect)rect
+#pragma mark - 富文本绘制
+- (void)insertEmojiAttributed: (NSString *)imageName emojiRange: (NSRange)emojiRange
 {
-    NSString * const imageKey = @"imageName";
-    NSString * clickText = @"@骑着jm的hi";
-    
-    NSMutableAttributedString * content = [[NSMutableAttributedString alloc] initWithString: [NSString stringWithFormat: @"%@: this is a core text demo", clickText]];
-    NSRange clickRange = [content.string rangeOfString: clickText];
-    [self.textTouchMapper setValue: clickText forKey: NSStringFromRange(clickRange)];
-    if (clickRange.location != NSNotFound) {
-        [content addAttributes: @{ NSForegroundColorAttributeName: [UIColor blueColor] } range: clickRange];
-    }
-    
-    NSString * imageName = @"me_kuaidixiangqing_phone_icon";
-    
-    /*!
-     *  @brief 创建CTRunDelegate
-     */
     CTRunDelegateCallbacks imageCallbacks;
     imageCallbacks.version = kCTRunDelegateVersion1;
     imageCallbacks.dealloc = RunDelegateDeallocCallback;
     imageCallbacks.getWidth = RunDelegateGetWidthCallback;
     imageCallbacks.getAscent = RunDelegateGetAscentCallback;
     imageCallbacks.getDescent = RunDelegateGetDescentCallback;
-    CTRunDelegateRef runDelegate = CTRunDelegateCreate(&imageCallbacks, (__bridge void *)imageName);
     
+    /*!
+     *  @brief 插入图片属性文本
+     */
+    CTRunDelegateRef runDelegate = CTRunDelegateCreate(&imageCallbacks, (__bridge void *)imageName);
     NSMutableAttributedString * imageAttributedString = [[NSMutableAttributedString alloc] initWithString: @" "];
     [imageAttributedString addAttribute: (NSString *)kCTRunDelegateAttributeName value: (__bridge id)runDelegate range: NSMakeRange(0, 1)];
+    [imageAttributedString addAttribute: LXDEmojiImageNameKey value: imageName range: NSMakeRange(0, 1)];
+    [_content deleteCharactersInRange: emojiRange];
+    [_content insertAttributedString: imageAttributedString atIndex: emojiRange.location];
     CFRelease(runDelegate);
-    [imageAttributedString addAttribute: imageKey value: imageName range: NSMakeRange(0, 1)];
-    [content insertAttributedString: imageAttributedString atIndex: 15];
-//    [content appendAttributedString: imageAttributedString];
+}
+
+/*!
+ *  @brief 在绘制富文本之前构建富文本字符串
+ */
+- (void)constructAttributed
+{
+    _content = [[NSMutableAttributedString alloc] initWithString: _text attributes: self.textAttributes];
+    /*!
+     *  @brief 获取所有转换emoji表情的文本位置
+     */
+    for (NSString * emojiText in self.emojiTextMapper) {
+        NSRange range = [_text rangeOfString: emojiText];
+        if (range.location != NSNotFound) {
+            [self insertEmojiAttributed: self.emojiTextMapper[emojiText] emojiRange: range];
+        }
+    }
     
+    /*!
+     *  @brief 获取所有转换超链接的文本位置
+     */
+    for (NSString * hyperlinkText in self.hyperlinkMapper) {
+        NSRange range = [_text rangeOfString: hyperlinkText];
+        if (range.location != NSNotFound) {
+            [self.textTouchMapper setValue: self.hyperlinkMapper[hyperlinkText] forKey: NSStringFromRange(range)];
+            [_content addAttributes: @{ NSForegroundColorAttributeName: [UIColor blueColor] } range: range];
+        }
+    }
     
     /*!
      *  @brief 设置字体属性
@@ -115,10 +202,18 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
     NSMutableDictionary * attributes = @{
                                          (id)kCTParagraphStyleAttributeName: (id)style
                                          }.mutableCopy;
-    [content addAttributes: attributes range: NSMakeRange(0, content.length)];
+    [_content addAttributes: attributes range: NSMakeRange(0, _content.length)];
     CTFontRef font = CTFontCreateWithName((CFStringRef)[UIFont systemFontOfSize: 16].fontName, 16, NULL);
-    [content addAttributes: @{ (id)kCTFontAttributeName: (__bridge id)font } range: NSMakeRange(0, content.length)];
-    
+    [_content addAttributes: @{ (id)kCTFontAttributeName: (__bridge id)font } range: NSMakeRange(0, _content.length)];
+    CFRelease(font);
+    CFRelease(style);
+}
+
+
+#pragma mark - 绘制文本
+- (void)drawRect: (CGRect)rect
+{
+    [self constructAttributed];
     /*!
      *  @brief 翻转坐标系
      */
@@ -130,10 +225,10 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
     /*!
      *  @brief 设置CTFrameSetter
      */
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)content);
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)_content);
     CGMutablePathRef paths = CGPathCreateMutable();
     CGPathAddRect(paths, NULL, self.bounds);
-    _frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, content.length), paths, NULL);
+    _frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, _content.length), paths, NULL);
     CTFrameDraw(_frame, ctx);        //绘制文字
     
     /*!
@@ -147,10 +242,10 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
         NSLog(@"第%d行起始坐标%@ --  坐标系倒转", idx, NSStringFromCGPoint(origin));
     }
     
-    
     /*!
      *  @brief 遍历CTLine
      */
+    CGFloat maxHeight = 0;
     for (int idx = 0; idx < CFArrayGetCount(lines); idx++) {
         CTLineRef line = CFArrayGetValueAtIndex(lines, idx);
         CGFloat lineAscent;
@@ -160,6 +255,7 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
         NSLog(@"上行距离%f --- 下行距离%f --- 左侧偏移%f", lineAscent, lineDescent, lineLeading);
         
         
+        CGFloat lineHeight = 0;
         CFArrayRef runs = CTLineGetGlyphRuns(line);
         for (int index = 0; index < CFArrayGetCount(runs); index++) {
             CGFloat runAscent;
@@ -171,11 +267,12 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
             CGRect runRect;
             runRect.size.width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), &runAscent, &runDescent, NULL);
             runRect = CGRectMake(lineOrigin.x + CTLineGetOffsetForStringIndex(line, CTRunGetStringRange(run).location, NULL), lineOrigin.y - runDescent, runRect.size.width, runAscent + runDescent);
+            lineHeight = MAX(lineHeight, runRect.size.height);
             
             /*!
              *  @brief 绘制图片
              */
-            NSString * imageName = attributes[imageKey];
+            NSString * imageName = attributes[LXDEmojiImageNameKey];
             if (imageName) {
                 UIImage * image = [UIImage imageNamed: imageName];
                 if (image) {
@@ -185,20 +282,27 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
                     imageDrawRect.origin.x = runRect.origin.x + lineOrigin.x;
                     imageDrawRect.origin.y = lineOrigin.y - lineDescent;
                     CGContextDrawImage(ctx, imageDrawRect, image.CGImage);
-                    imageDrawRect.origin.y += lineDescent * 2;
-                    [self.emojiTouchMapper setValue: imageName forKey: NSStringFromCGRect(imageDrawRect)];
+                    self.emojiTouchMapper[NSStringFromCGRect(imageDrawRect)] = imageName;
+                    lineHeight = MAX(lineHeight, imageDrawRect.size.height);
                 }
             }
         }
+        maxHeight += lineHeight;
     }
     
+    for (NSString * imageRect in self.emojiTouchMapper) {
+        id value = self.emojiTouchMapper[imageRect];
+        self.emojiTouchMapper[imageRect] = nil;
+        
+        CGRect rect = CGRectFromString(imageRect);
+        rect.origin.y = maxHeight - rect.origin.y;
+        self.emojiTouchMapper[NSStringFromCGRect(rect)] = value;
+    }
     
     /*!
      *  @brief 释放变量
      */
     CGContextRestoreGState(ctx);
-    CFRelease(font);
-    CFRelease(style);
     CFRelease(paths);
     CFRelease(framesetter);
 }
@@ -234,23 +338,23 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
         }
     }
     
+    if (line == NULL) { return; }
+    
     touchPoint.x -= lineOrigin.x;
     CFIndex index = CTLineGetStringIndexForPosition(line, touchPoint);
     
-    BOOL textDidTouched = NO;
     for (NSString * textRange in self.textTouchMapper) {
         NSRange range = NSRangeFromString(textRange);
         if (index >= range.location && index <= range.location + range.length) {
-            textDidTouched = YES;
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle: nil message: self.textTouchMapper[textRange] preferredStyle: UIAlertControllerStyleAlert];
-            [alert addAction: [UIAlertAction actionWithTitle: @"确认" style: UIAlertActionStyleCancel handler: nil]];
-            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController: alert animated: YES completion: nil];
-            break;
+            if ([_delegate respondsToSelector: @selector(textView:didSelectedHyperlink:)]) {
+                [_delegate textView: self didSelectedHyperlink: self.textTouchMapper[textRange]];
+            }
+            return;
         }
     }
-    if (textDidTouched) { return; }
     for (NSString * rectString in self.emojiTouchMapper) {
         CGRect textRect = CGRectFromString(rectString);
+//        NSLog(@"touch: %@ ---- %@", NSStringFromCGPoint(touchPoint), rectString);
         if (CGRectContainsPoint(textRect, touchPoint)) {
             UIAlertController * alert = [UIAlertController alertControllerWithTitle: nil message: [NSString stringWithFormat: @"点击了emoji表情%@", self.emojiTouchMapper[rectString]] preferredStyle: UIAlertControllerStyleAlert];
             [alert addAction: [UIAlertAction actionWithTitle: @"确认" style: UIAlertActionStyleCancel handler: nil]];
