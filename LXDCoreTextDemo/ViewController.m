@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "LXDTextView.h"
 
-@interface ViewController ()
+@interface ViewController ()<LXDTextViewDelegate>
 
 @end
 
@@ -19,22 +19,34 @@
     [super viewDidLoad];
     
     LXDTextView * textView = [[LXDTextView alloc] initWithFrame: CGRectMake(0, 0, 200, 200)];
+    textView.delegate = self;
     [self.view addSubview: textView];
     textView.center = self.view.center;
     textView.emojiTextMapper = @{
                                  @"[emoji]": @"me_kuaidixiangqing_phone_icon"
                                  };
     textView.hyperlinkMapper = @{
-                                 @"牛人来了": @"niurenlaile",
-                                 @"我是牛人爸爸": @"woshiniurenbaba",
-                                 @"阿里": @"ali",
-                                 @"葡萄": @"putao",
+                                 @"@百度": @"https://www.baidu.com",
+                                 @"@腾讯": @"https://www.qq.com",
+                                 @"@谷歌": @"https://www.google.com",
+                                 @"@脸书": @"https://www.facebook.com",
                                  };
-    textView.text = @"很久很久以前，在一个群里，生活着牛人来了、我是牛人爸爸这样的居民，后来，一个叫做阿里的人入侵了这个村庄，他的同伙葡萄让整个群里变得淫荡无比。从此，迎来了污妖王的时代。污妖王，我当定了！[emoji]";
+    textView.text = @"很久很久以前，在一个群里，生活着@百度、@腾讯这样的居民，后来，一个叫做@谷歌的人入侵了这个村庄，他的同伙@脸书让整个群里变得淫荡无比。从此，迎来了污妖王的时代。污妖王，我当定了！[emoji]";
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)textView: (LXDTextView *)textView didSelectedHyperlink: (NSString *)hyperlink
+{
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle: nil message: hyperlink preferredStyle: UIAlertControllerStyleAlert];
+    [alert addAction: [UIAlertAction actionWithTitle: @"yes" style: UIAlertActionStyleCancel handler: nil]];
+    [self presentViewController: alert animated: YES completion: nil];
+}
+
+- (void)textView: (LXDTextView *)textView didSelectedEmoji: (NSString *)emojiName
+{
 }
 
 @end

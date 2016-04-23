@@ -186,6 +186,7 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
         if (range.location != NSNotFound) {
             [self.textTouchMapper setValue: self.hyperlinkMapper[hyperlinkText] forKey: NSStringFromRange(range)];
             [_content addAttributes: @{ NSForegroundColorAttributeName: [UIColor blueColor] } range: range];
+            [_content addAttributes: @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) } range: range];
         }
     }
     
@@ -239,7 +240,7 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
     CTFrameGetLineOrigins(_frame, CFRangeMake(0, 0), lineOrigins);
     for (int idx = 0; idx < CFArrayGetCount(lines); idx++) {
         CGPoint origin = lineOrigins[idx];
-        NSLog(@"第%d行起始坐标%@ --  坐标系倒转", idx, NSStringFromCGPoint(origin));
+        NSLog(@"第%d行起始坐标%@", idx, NSStringFromCGPoint(origin));
     }
     
     /*!
@@ -252,8 +253,7 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
         CGFloat lineDescent;
         CGFloat lineLeading;
         CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
-        NSLog(@"上行距离%f --- 下行距离%f --- 左侧偏移%f", lineAscent, lineDescent, lineLeading);
-        
+//        NSLog(@"上行距离%f --- 下行距离%f --- 左侧偏移%f", lineAscent, lineDescent, lineLeading);
         
         CGFloat lineHeight = 0;
         CFArrayRef runs = CTLineGetGlyphRuns(line);
@@ -356,7 +356,6 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
     if (!_emojiUserInteractionEnabled) { return; }
     for (NSString * rectString in self.emojiTouchMapper) {
         CGRect textRect = CGRectFromString(rectString);
-//        NSLog(@"touch: %@ ---- %@", NSStringFromCGPoint(touchPoint), rectString);
         if (CGRectContainsPoint(textRect, touchPoint)) {
             if ([_delegate respondsToSelector: @selector(textView:didSelectedEmoji:)]) {
                 [_delegate textView: self didSelectedEmoji: self.emojiTouchMapper[rectString]];
