@@ -141,6 +141,12 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
 
 
 #pragma mark - 富文本绘制
+/*!
+ *  @brief 在富文本中插入表情占位符，然后设置好属性
+ *
+ *  @param imageName  表情图片的名称
+ *  @param emojiRange  表情文本在富文本中的位置，用于替换富文本
+ */
 - (void)insertEmojiAttributed: (NSString *)imageName emojiRange: (NSRange)emojiRange
 {
     CTRunDelegateCallbacks imageCallbacks;
@@ -172,9 +178,10 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
      *  @brief 获取所有转换emoji表情的文本位置
      */
     for (NSString * emojiText in self.emojiTextMapper) {
-        NSRange range = [_text rangeOfString: emojiText];
-        if (range.location != NSNotFound) {
+        NSRange range = [_content.string rangeOfString: emojiText];
+        while (range.location != NSNotFound) {
             [self insertEmojiAttributed: self.emojiTextMapper[emojiText] emojiRange: range];
+            range = [_content.string rangeOfString: emojiText];
         }
     }
     
@@ -182,11 +189,17 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
      *  @brief 获取所有转换超链接的文本位置
      */
     for (NSString * hyperlinkText in self.hyperlinkMapper) {
-        NSRange range = [_text rangeOfString: hyperlinkText];
-        if (range.location != NSNotFound) {
-            [self.textTouchMapper setValue: self.hyperlinkMapper[hyperlinkText] forKey: NSStringFromRange(range)];
-            [_content addAttributes: @{ NSForegroundColorAttributeName: [UIColor blueColor] } range: range];
+        NSString * subText = _content.string;
+        NSRange range = [subText rangeOfString: hyperlinkText];
+        NSInteger subLocation = 0;
+        while (range.location != NSNotFound) {
+            NSLog(@"%lu ---- %lu, %@ --- %@", subLocation, range.location, hyperlinkText, subText);
+            subText = [_content.string substringFromIndex: range.location + range.length];
+            [self.textTouchMapper setValue: self.hyperlinkMapper[hyperlinkText] forKey: NSStringFromRange(NSMakeRange(range.location + subLocation, range.length))];
+            [_content addAttributes: @{ NSForegroundColorAttributeName: [UIColor blueColor] } range: NSMakeRange(range.location + subLocation, range.length)];
             [_content addAttributes: @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) } range: range];
+            subLocation += range.location;
+            range = [subText rangeOfString: hyperlinkText];
         }
     }
     
@@ -194,7 +207,7 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
      *  @brief 设置字体属性
      */
     CTParagraphStyleSetting styleSetting;
-    CTLineBreakMode lineBreak = kCTLineBreakByWordWrapping;
+    CTLineBreakMode lineBreak = kCTLineBreakByCharWrapping;
     styleSetting.spec = kCTParagraphStyleSpecifierLineBreakMode;
     styleSetting.value = &lineBreak;
     styleSetting.valueSize = sizeof(CTLineBreakMode);
@@ -246,21 +259,23 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
     /*!
      *  @brief 遍历CTLine
      */
-    CGFloat maxHeight = 0;
+    CGFloat topPoint = 0;
     for (int idx = 0; idx < CFArrayGetCount(lines); idx++) {
         CTLineRef line = CFArrayGetValueAtIndex(lines, idx);
         CGFloat lineAscent;
         CGFloat lineDescent;
         CGFloat lineLeading;
+        CGPoint lineOrigin = lineOrigins[idx];
         CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
 //        NSLog(@"上行距离%f --- 下行距离%f --- 左侧偏移%f", lineAscent, lineDescent, lineLeading);
+        if (idx == 0) { topPoint = lineOrigin.y; }
         
         CGFloat lineHeight = 0;
         CFArrayRef runs = CTLineGetGlyphRuns(line);
         for (int index = 0; index < CFArrayGetCount(runs); index++) {
             CGFloat runAscent;
             CGFloat runDescent;
-            CGPoint lineOrigin = lineOrigins[idx];
+            NSLog(@"%@", NSStringFromCGPoint(lineOrigin));
             
             CTRunRef run = CFArrayGetValueAtIndex(runs, index);
             NSDictionary * attributes = (NSDictionary *)CTRunGetAttributes(run);
@@ -282,21 +297,12 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
                     imageDrawRect.origin.x = runRect.origin.x + lineOrigin.x;
                     imageDrawRect.origin.y = lineOrigin.y - lineDescent;
                     CGContextDrawImage(ctx, imageDrawRect, image.CGImage);
-                    self.emojiTouchMapper[NSStringFromCGRect(imageDrawRect)] = imageName;
                     lineHeight = MAX(lineHeight, imageDrawRect.size.height);
+                    imageDrawRect.origin.y = topPoint - imageDrawRect.origin.y;
+                    self.emojiTouchMapper[NSStringFromCGRect(imageDrawRect)] = imageName;
                 }
             }
         }
-        maxHeight += lineHeight;
-    }
-    
-    for (NSString * imageRect in self.emojiTouchMapper) {
-        id value = self.emojiTouchMapper[imageRect];
-        self.emojiTouchMapper[imageRect] = nil;
-        
-        CGRect rect = CGRectFromString(imageRect);
-        rect.origin.y = maxHeight - rect.origin.y;
-        self.emojiTouchMapper[NSStringFromCGRect(rect)] = value;
     }
     
     /*!
@@ -310,7 +316,6 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
 - (void)touchesEnded: (NSSet<UITouch *> *)touches withEvent: (UIEvent *)event
 {
     CGPoint touchPoint = [touches.anyObject locationInView: self];
-    
     CFArrayRef lines = CTFrameGetLines(_frame);
     CGPoint origins[CFArrayGetCount(lines)];
     
@@ -333,13 +338,12 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
         if (touchPoint.y <= y && (touchPoint.x >= origin.x && touchPoint.x <= rect.origin.x + rect.size.width)) {
             line = CFArrayGetValueAtIndex(lines, idx);
             lineOrigin = origin;
-            NSLog(@"点击第%d行", idx);
+//            NSLog(@"点击第%d行", idx);
             break;
         }
     }
     
     if (line == NULL) { return; }
-    
     touchPoint.x -= lineOrigin.x;
     CFIndex index = CTLineGetStringIndexForPosition(line, touchPoint);
     
@@ -355,8 +359,9 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
     
     if (!_emojiUserInteractionEnabled) { return; }
     for (NSString * rectString in self.emojiTouchMapper) {
-        CGRect textRect = CGRectFromString(rectString);
-        if (CGRectContainsPoint(textRect, touchPoint)) {
+        CGRect emojiRect = CGRectFromString(rectString);
+//        NSLog(@"%@ --- %@", rectString, NSStringFromCGPoint(touchPoint));
+        if (CGRectContainsPoint(emojiRect, touchPoint)) {
             if ([_delegate respondsToSelector: @selector(textView:didSelectedEmoji:)]) {
                 [_delegate textView: self didSelectedEmoji: self.emojiTouchMapper[rectString]];
             }

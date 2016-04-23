@@ -18,12 +18,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    LXDTextView * textView = [[LXDTextView alloc] initWithFrame: CGRectMake(0, 0, 200, 200)];
+    LXDTextView * textView = [[LXDTextView alloc] initWithFrame: CGRectMake(0, 0, 200, 300)];
     textView.delegate = self;
     [self.view addSubview: textView];
+    textView.emojiUserInteractionEnabled = YES;
     textView.center = self.view.center;
     textView.emojiTextMapper = @{
-                                 @"[emoji]": @"me_kuaidixiangqing_phone_icon"
+                                 @"[emoji]": @"emoji"
                                  };
     textView.hyperlinkMapper = @{
                                  @"@百度": @"https://www.baidu.com",
@@ -31,7 +32,7 @@
                                  @"@谷歌": @"https://www.google.com",
                                  @"@脸书": @"https://www.facebook.com",
                                  };
-    textView.text = @"很久很久以前，在一个群里，生活着@百度、@腾讯这样的居民，后来，一个叫做@谷歌的人入侵了这个村庄，他的同伙@脸书让整个群里变得淫荡无比。从此，迎来了污妖王的时代。污妖王，我当定了！[emoji]";
+    textView.text = @"很久很久以前[emoji]，在一个群里，生活着@百度、@腾讯这样的居民，后来，一个[emoji]叫做@谷歌的人入侵了这个村庄，他的同伙@脸书让整个群里变得淫荡无比。从此[emoji]，迎来了污妖王的时代。污妖王，我当定了！[emoji]";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,6 +48,9 @@
 
 - (void)textView: (LXDTextView *)textView didSelectedEmoji: (NSString *)emojiName
 {
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle: nil message: emojiName preferredStyle: UIAlertControllerStyleAlert];
+    [alert addAction: [UIAlertAction actionWithTitle: @"yes" style: UIAlertActionStyleCancel handler: nil]];
+    [self presentViewController: alert animated: YES completion: nil];
 }
 
 @end
