@@ -14,6 +14,7 @@
 @optional
 - (void)textView: (LXDTextView *)textView didSelectedEmoji: (NSString *)emojiName;
 - (void)textView: (LXDTextView *)textView didSelectedHyperlink: (NSString *)hyperlink;
+- (void)textView: (LXDTextView *)textView didFinishTextRender: (NSInteger)reasonableLength;
 
 @end
 

@@ -227,6 +227,7 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
 #pragma mark - 绘制文本
 - (void)drawRect: (CGRect)rect
 {
+    if (!self.text) { return; }
     [self constructAttributed];
     /*!
      *  @brief 翻转坐标系
@@ -241,7 +242,8 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
      */
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)_content);
     CGMutablePathRef paths = CGPathCreateMutable();
-    CGPathAddRect(paths, NULL, self.bounds);
+    CGRect textRect = CGRectInset(self.bounds, 20, 25);
+    CGPathAddRect(paths, NULL, textRect);
     _frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, _content.length), paths, NULL);
     CTFrameDraw(_frame, ctx);        //绘制文字
     
@@ -251,10 +253,6 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
     CFArrayRef lines = CTFrameGetLines(_frame);
     CGPoint lineOrigins[CFArrayGetCount(lines)];
     CTFrameGetLineOrigins(_frame, CFRangeMake(0, 0), lineOrigins);
-    for (int idx = 0; idx < CFArrayGetCount(lines); idx++) {
-        CGPoint origin = lineOrigins[idx];
-        NSLog(@"第%d行起始坐标%@", idx, NSStringFromCGPoint(origin));
-    }
     
     /*!
      *  @brief 遍历CTLine
@@ -268,6 +266,7 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
         CGPoint lineOrigin = lineOrigins[idx];
         CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
 //        NSLog(@"上行距离%f --- 下行距离%f --- 左侧偏移%f", lineAscent, lineDescent, lineLeading);
+        
         if (idx == 0) { topPoint = lineOrigin.y; }
         
         CGFloat lineHeight = 0;
@@ -275,7 +274,7 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
         for (int index = 0; index < CFArrayGetCount(runs); index++) {
             CGFloat runAscent;
             CGFloat runDescent;
-            NSLog(@"%@", NSStringFromCGPoint(lineOrigin));
+//            NSLog(@"%@", NSStringFromCGPoint(lineOrigin));
             
             CTRunRef run = CFArrayGetValueAtIndex(runs, index);
             NSDictionary * attributes = (NSDictionary *)CTRunGetAttributes(run);
@@ -305,6 +304,14 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
         }
     }
     
+    if ([_delegate respondsToSelector: @selector(textView:didFinishTextRender:)]) {
+        CTLineRef line = CFArrayGetValueAtIndex(lines, CFArrayGetCount(lines) - 1);
+        CGPoint lineOrigin = lineOrigins[CFArrayGetCount(lines) - 1];
+        CGPoint lastWordPoint = CGPointMake(textRect.size.width - 2, textRect.size.height - lineOrigin.y - 2);
+        CFIndex index = CTLineGetStringIndexForPosition(line, lastWordPoint);
+        [_delegate textView: self didFinishTextRender: index];
+    }
+    
     /*!
      *  @brief 释放变量
      */
@@ -315,6 +322,7 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
 
 - (void)touchesEnded: (NSSet<UITouch *> *)touches withEvent: (UIEvent *)event
 {
+    if (!_frame) { return; }
     CGPoint touchPoint = [touches.anyObject locationInView: self];
     CFArrayRef lines = CTFrameGetLines(_frame);
     CGPoint origins[CFArrayGetCount(lines)];
@@ -338,7 +346,7 @@ CGFloat RunDelegateGetWidthCallback(void * refCon)
         if (touchPoint.y <= y && (touchPoint.x >= origin.x && touchPoint.x <= rect.origin.x + rect.size.width)) {
             line = CFArrayGetValueAtIndex(lines, idx);
             lineOrigin = origin;
-//            NSLog(@"点击第%d行", idx);
+            NSLog(@"点击第%d行", idx);
             break;
         }
     }

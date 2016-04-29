@@ -8,8 +8,14 @@
 
 #import "ViewController.h"
 #import "LXDTextView.h"
+#import "LXDOptimize.h"
+
+
 
 @interface ViewController ()<LXDTextViewDelegate>
+
+@property (nonatomic, strong) LXDTextView * textView;
+@property (nonatomic, strong) NSFileManager * txtManager;
 
 @end
 
@@ -18,21 +24,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    LXDTextView * textView = [[LXDTextView alloc] initWithFrame: CGRectMake(0, 0, 200, 300)];
+    NSString * filePath = [[NSBundle mainBundle] pathForResource: @"三体" ofType: @"txt"];
+    NSData * data = [NSData dataWithContentsOfFile: filePath];
+    NSInteger length = 900;
+    NSData * subData = [data subdataWithRange: NSMakeRange(0, length)];
+    NSString * text = [[NSString alloc] initWithData: subData encoding: CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
+    while (!text) {
+        length++;
+        subData = [data subdataWithRange: NSMakeRange(0, length)];
+        text = [[NSString alloc] initWithData: subData encoding: CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
+    }
+    NSLog(@"read text: %@ \n ----- length: %lu", text, text.length);
+    
+//    NSString * fileText = [[NSString alloc] initWithData: txtData encoding: encoding];
+//    NSLog(@"fileText %@", fileText);
+    
+    LXDTextView * textView = [[LXDTextView alloc] initWithFrame: self.view.bounds];
     textView.delegate = self;
     [self.view addSubview: textView];
-    textView.emojiUserInteractionEnabled = YES;
+    textView.text = text;
     textView.center = self.view.center;
-    textView.emojiTextMapper = @{
-                                 @"[emoji]": @"emoji"
-                                 };
-    textView.hyperlinkMapper = @{
-                                 @"@百度": @"https://www.baidu.com",
-                                 @"@腾讯": @"https://www.qq.com",
-                                 @"@谷歌": @"https://www.google.com",
-                                 @"@脸书": @"https://www.facebook.com",
-                                 };
-    textView.text = @"很久很久以前[emoji]，在一个群里，生活着@百度、@腾讯这样的居民，后来，一个[emoji]叫做@谷歌的人入侵了这个村庄，他的同伙@脸书让整个群里变得淫荡无比。从此[emoji]，迎来了污妖王的时代。污妖王，我当定了！[emoji]";
+    _textView = textView;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,5 +64,11 @@
     [alert addAction: [UIAlertAction actionWithTitle: @"yes" style: UIAlertActionStyleCancel handler: nil]];
     [self presentViewController: alert animated: YES completion: nil];
 }
+
+- (void)textView: (LXDTextView *)textView didFinishTextRender: (NSInteger)reasonableLength
+{
+    
+}
+
 
 @end

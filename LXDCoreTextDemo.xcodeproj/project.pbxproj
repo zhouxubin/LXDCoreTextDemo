@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF4248F71CD1A5BB0059A72C /* 三体.txt in Resources */ = {isa = PBXBuildFile; fileRef = EF4248F61CD1A5BB0059A72C /* 三体.txt */; };
+		EF4248FD1CD1B7570059A72C /* LXDTextDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4248FC1CD1B7570059A72C /* LXDTextDataManager.m */; };
 		EF4D30B71CC882A7003828CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D30B61CC882A7003828CF /* main.m */; };
 		EF4D30BA1CC882A7003828CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D30B91CC882A7003828CF /* AppDelegate.m */; };
 		EF4D30BD1CC882A7003828CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D30BC1CC882A7003828CF /* ViewController.m */; };
@@ -36,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EF4248F61CD1A5BB0059A72C /* 三体.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "三体.txt"; sourceTree = "<group>"; };
+		EF4248FB1CD1B7570059A72C /* LXDTextDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXDTextDataManager.h; sourceTree = "<group>"; };
+		EF4248FC1CD1B7570059A72C /* LXDTextDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXDTextDataManager.m; sourceTree = "<group>"; };
 		EF4D30B21CC882A7003828CF /* LXDCoreTextDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LXDCoreTextDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF4D30B61CC882A7003828CF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EF4D30B81CC882A7003828CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -52,6 +57,7 @@
 		EF4D30D61CC882A8003828CF /* LXDCoreTextDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LXDCoreTextDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF4D30DA1CC882A8003828CF /* LXDCoreTextDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LXDCoreTextDemoUITests.m; sourceTree = "<group>"; };
 		EF4D30DC1CC882A8003828CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF4D7DB91CD0AA8B0089D9C4 /* LXDOptimize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LXDOptimize.h; sourceTree = "<group>"; };
 		EF67EBBC1CC9C0D50004B435 /* LXDTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXDTextView.h; sourceTree = "<group>"; };
 		EF67EBBD1CC9C0D50004B435 /* LXDTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXDTextView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +110,8 @@
 		EF4D30B41CC882A7003828CF /* LXDCoreTextDemo */ = {
 			isa = PBXGroup;
 			children = (
+				EF4248FB1CD1B7570059A72C /* LXDTextDataManager.h */,
+				EF4248FC1CD1B7570059A72C /* LXDTextDataManager.m */,
 				EF67EBBC1CC9C0D50004B435 /* LXDTextView.h */,
 				EF67EBBD1CC9C0D50004B435 /* LXDTextView.m */,
 				EF4D30B81CC882A7003828CF /* AppDelegate.h */,
@@ -115,6 +123,8 @@
 				EF4D30C31CC882A7003828CF /* LaunchScreen.storyboard */,
 				EF4D30C61CC882A7003828CF /* Info.plist */,
 				EF4D30B51CC882A7003828CF /* Supporting Files */,
+				EF4D7DB91CD0AA8B0089D9C4 /* LXDOptimize.h */,
+				EF4248F61CD1A5BB0059A72C /* 三体.txt */,
 			);
 			path = LXDCoreTextDemo;
 			sourceTree = "<group>";
@@ -251,6 +261,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF4248F71CD1A5BB0059A72C /* 三体.txt in Resources */,
 				EF4D30C51CC882A7003828CF /* LaunchScreen.storyboard in Resources */,
 				EF4D30C21CC882A7003828CF /* Assets.xcassets in Resources */,
 				EF4D30C01CC882A7003828CF /* Main.storyboard in Resources */,
@@ -280,6 +291,7 @@
 			files = (
 				EF67EBBE1CC9C0D50004B435 /* LXDTextView.m in Sources */,
 				EF4D30BD1CC882A7003828CF /* ViewController.m in Sources */,
+				EF4248FD1CD1B7570059A72C /* LXDTextDataManager.m in Sources */,
 				EF4D30BA1CC882A7003828CF /* AppDelegate.m in Sources */,
 				EF4D30B71CC882A7003828CF /* main.m in Sources */,
 			);
